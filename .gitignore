@@ -133,3 +133,5 @@ dmypy.json
 
 # big dataset
 data/denver_property_info.csv
+data/denver_improved_property_info_with_ct.csv
+data/denver_joined_dataset.csv
