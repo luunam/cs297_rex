@@ -19,8 +19,8 @@ import category_encoders as ce
 @param id: the index column
 @param variance_threshold 
 '''
-def clean_dataset(df, variance_threshold=0.1):
-    # STEP 1: remove features that have significant missing data
+def clean_dataset(df, csv_name, variance_threshold=0.1):
+    # STEP 1: remove features that have significant missing data (threshold is 80% not mmissing)
     percent_notnull = df.notnull().sum() * 100 / len(df)
     percent_notnull_df = pd.DataFrame(
         {'column_name': df.columns, 'percent_notnull': percent_notnull})
@@ -71,6 +71,12 @@ def clean_dataset(df, variance_threshold=0.1):
 
     # sklearn preprocessor remove the column name so we need to add them back in
     df = pd.DataFrame(df, columns=columns)
+
+    #add in empty sale and list date columns
+    df['list_date'] = ['null' for i in range(len(df))]
+    df['sale_date'] = ['null' for i in range(len(df))]
+
+    df.to_csv(f'{csv_name}.csv')
 
     print('========= Finish step 3 ===========')
     print(df.info())
