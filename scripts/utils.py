@@ -29,13 +29,33 @@ def gen_dataset(df, t0, diff):
     
     tp = {str(k): list(v) for k, v in tmp.groupby(tmp.dtypes, axis=1)}
     
-    X = pd.concat([tmp[tp['float64']], tmp[tp['bool']], tmp[tp['int64']]], axis=1)
+    X = pd.DataFrame()
+    print(tp)
+
+    if 'float64' in tp:
+        X = pd.concat([X,tmp[tp['float64']]], axis=1)
+
+    if 'bool' in tp:
+        X = pd.concat([X,tmp[tp['bool']]], axis=1)
+
+    if 'int64' in tp:
+        X = pd.concat([X,tmp[tp['int64']]], axis=1)
+
+    # X = pd.concat([tmp[tp['float64']], tmp[tp['bool']], tmp[tp['int64']]], axis=1)
     y = gen_y(diff, tmp, t0)
     
-    return {
+    res = {
         'X': X,
-        'y': y[:,1].reshape(-1,1),
-        'float': tp['float64'],
-        'bool': tp['bool'],
-        'int': tp['int64']
+        'y': y[:,1].reshape(-1,1)
     }
+
+    if 'float64' in tp:
+        res['float'] = tp['float64']
+
+    if 'bool' in tp:
+        res['bool'] = tp['bool']
+
+    if 'int64' in tp:
+        res['int'] = tp['int64']
+
+    return res
