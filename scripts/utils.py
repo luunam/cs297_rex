@@ -46,7 +46,7 @@ def gen_dataset(df, t0, diff):
     
     res = {
         'X': X,
-        'y': y[:,1].reshape(-1,1)
+        'y': y[:,1]
     }
 
     if 'float64' in tp:
