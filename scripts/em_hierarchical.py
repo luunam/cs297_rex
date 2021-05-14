@@ -145,6 +145,13 @@ def em(K, X, y, n_cont, n_bool, n_int, n_loc=2):
     return submarket
 
 
+"""
+    Evaluate the submarkets generated from the function em()
+    @param X: the X dataset
+    @param y: labels
+    @param sub: the submarket generated from em()
+    @param K: the number of submarkets
+"""
 def submarket_em_eval(X, y, sub, K):
     
     train_acc_agg = 0
